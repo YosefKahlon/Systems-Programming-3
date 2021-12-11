@@ -60,12 +60,36 @@ int main()
 {
 
     char c;
-    char n[] = "aBRSTs";
+    char n1[] = "aBR  STs";
+    int count = 0;
+
+    for (int i = 0; i < sizeof(n1); i++)
+    {
+        if (n1[i] != ' ' || n1[i] != '\t' || n1[i] != '\n')
+        {
+            count ++ ; 
+        }
+    }
+
+    char n[count];
+    int k = 0;
+for (size_t i = 0; i < sizeof(n1) && count; i++)
+{
+    if (n1[i] == ' '  || n1[i] == '\t' || n1[i] == '\n')
+    {
+            continue;      
+    }
+    else{
+        n[k] = n1[i];
+        k++;
+    }
+    
+}
     Atbash_Sequences(n);
     int i = 0;
     while (n[i])
     {
-        printf("%c\n", n[i]);
+        printf("%c", n[i]);
         i++;
     }
 
