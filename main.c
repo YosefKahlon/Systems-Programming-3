@@ -94,4 +94,8 @@ for (size_t i = 0; i < sizeof(n1) && count; i++)
     }
 
     return 0;
+
+}
+int func(){
+    return 1;
 }
