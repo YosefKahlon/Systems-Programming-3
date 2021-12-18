@@ -1,10 +1,15 @@
+CC=gcc
+AR=ar
+OBJECT_MAIN=main.o
+OBJECT_LIB=NumClass.o
+FLAGS=-Wall -g   
 all: stringProg 
 		
-Ex3.o: Ex3.c 
-	$(CC) $(FLAGS) -c Ex3.c
+Ex3.o: main.c 
+	$(CC) $(FLAGS) -c main.c
 	
-stringProg: Ex3.o 
-	$(CC) $(FLAGS) Ex3.o -lm -o stringProg
+stringProg: main.o 
+	$(CC) $(FLAGS) main.o -lm -o stringProg
 	
 .PHONY: clean all
 
