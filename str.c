@@ -157,9 +157,9 @@ void func1(char word[], char txt[]) {
     int from = 0;
     while (array[i] != '\0') {
         char temp[TXT] = "";
-        printf("BEFORE %s\n", temp);
+
         copy(from, i, temp, array);
-        printf("after %s\n", temp);
+
 
 
         while (temp[k] != '\0') {
@@ -194,10 +194,7 @@ void func1(char word[], char txt[]) {
                 from++;
             }
         }
-
-
     }
-
 
     int lastIndex = strlen(str) - 1;
     str[lastIndex] = '\0';
@@ -206,6 +203,13 @@ void func1(char word[], char txt[]) {
 
 //-----------------------------------q2------------------------------------------------
 void func2(char word[], char txt[]) {
+
+    char array[TXT];
+    strcpy(array,txt);
+
+
+
+
 
 
 }
