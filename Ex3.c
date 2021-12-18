@@ -14,6 +14,12 @@ char lowerCase(char c)
 //----------q1------------------------------
 void Gematria_Sequences()
 {
+
+
+
+
+
+    
 }
 //----------q2------------------------------
 //a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
@@ -21,12 +27,14 @@ void Gematria_Sequences()
 void Atbash_Sequences(char n[])
 {
 
-
-    for (char i = 0; i < n; i++)
-    {
-       n[i] = lowerCase(n[i]);
-        
+    int i = 0;
+// from uper to lower 
+    while (n[i]){
+        n[i]=lowerCase(n[i]);
+        i++;
     }
+  
+    
     
 
 
