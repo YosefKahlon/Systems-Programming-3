@@ -39,73 +39,48 @@ int charInGematria(char c) {
     return 0;
 }
 
-void func1(char word[], char txt[]) {
 
+//copy  string from b[from] to  a[to]
+void copy(int from, int to, char a[], char b[]) {
     int i = 0;
-    int sum = 0;
-    int sumTXT = 0;
-    char str[TXT] = "", *pt, *temp; // pointer to str
-    pt = txt;
-    int length = strlen(pt);
-    // caculte the sum of word
-    while (word[i] != '\0') {
-        sum += charInGematria(word[i]);
+    while (from <= to) {
+
+        a[i] = b[from];
+        from++;
         i++;
     }
 
-    //check sum
-    while (*pt != '\0' && i < length) {
-        printf("pt %s \n", pt);
-        char tempArr[TXT] = "";
-        temp = tempArr;
-        strncpy(tempArr, pt, i); // copy to tempArr from pt < i
-        printf("%s\n ", tempArr);
-        temp = tempArr;
 
-        if (!charInGematria(tempArr[0])) // dont include char with gematria 0 ;
-        {
-            //  printf(" temp[] %c \n" , tempArr[0]);
-            pt++;
-        }
+}
 
-        while (*temp != '\0') {
-            sumTXT += charInGematria(*temp);
-            temp++;
-        }
+char aToZ(char c) {
+    int ascii = c;
 
-        //printf("sum %d\n", sumTXT);
-
-        if (sum < sumTXT) {
-            sumTXT = 0;
-            temp = tempArr;
-            //  printf("before %s \n", pt);
-            pt++; // add more char
-            // printf("after %s \n", pt);
-        } else if (sum > sumTXT) {
-            printf("temp %s\n ", temp);
-            temp = tempArr;
-            sumTXT = 0;
-            i++;
-
-            printf("temp arr %s\n ", tempArr);
-        } else // sum = sumTXT
-        {
-
-            strcat(str, tempArr);
-            int lastIndex = strlen(str);
-            str[lastIndex] = 126; //~;
-            sumTXT = 0;
-            pt++;
-            i = 0;
-        }
-
-        printf("______________________________________________________________________________\n");
+    char pos;
+    if (c >= 'a' && c <= 'z') {
+        pos = ascii - 'a';
+        pos = 25 - pos;
+        ascii = pos + 'a';
+    } else if (c >= 'A' && c <= 'Z') {
+        pos = ascii - 'A';
+        pos = 25 - pos;
+        ascii = pos + 'A';
     }
 
-    int lastIndex = strlen(str);
-    str[lastIndex - 1] = '\0';
+    return ascii;
+}
 
-    printf("Gematria Sequences: %s\n", str);
+void swap(char *i, char *j) {
+    char temp = *i;
+    *i = *j;
+    *j = temp;
+}
+
+void reversWord(char *str, int len) {
+
+    for (int i = 0; i < len / 2; i++) {
+        swap(&str[i], &str[len - 1 - i]);
+    }
 }
 
 int Anagram_Sequences(char word[], char temp[]) {
@@ -148,20 +123,94 @@ int Anagram_Sequences(char word[], char temp[]) {
     return 1;
 }
 
-//copy  string from b[from] to  a[to]
-void copy(int from, int to, char a[], char b[]) {
-    int i = 0;
-    while (from <= to) {
 
-        a[i] = b[from];
-        from++;
+int minmal(char c) {
+
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+        return 1;
+    }
+    return 0;
+
+}
+
+//----------------------------q1-----------------------------------------
+void func1(char word[], char txt[]) {
+
+    int i = 0;
+    char array[TXT];
+    strcpy(array, txt);
+    int k = 0;
+
+
+    int sum = 0;
+    while (word[i] != '\0') {
+        sum += charInGematria(word[i]);
         i++;
     }
 
 
+    i = 0;
+    int c = 0;
+    char str[TXT] = "";
+    int sumTxt = 0;
+
+    int from = 0;
+    while (array[i] != '\0') {
+        char temp[TXT] = "";
+        printf("BEFORE %s\n", temp);
+        copy(from, i, temp, array);
+        printf("after %s\n", temp);
+
+
+        while (temp[k] != '\0') {
+            sumTxt += charInGematria(temp[k]);
+            k++;
+        }
+        k = 0;
+
+        if (sum > sumTxt) {
+            i++;
+            sumTxt = 0;
+        } else if (sum < sumTxt) {
+            sumTxt = 0;
+            from++;
+        } else {
+
+            int j = 0;
+            if (minmal(temp[j])) {
+                while (temp[j] != '\0') {
+                    str[c] = temp[j];
+                    c++;
+                    j++;
+                }
+                int lastIndex = strlen(str);
+                str[lastIndex] = '~';
+                c++;
+                from++;
+                i++;
+                sumTxt = 0;
+            } else {
+                sumTxt = 0;
+                from++;
+            }
+        }
+
+
+    }
+
+
+    int lastIndex = strlen(str) - 1;
+    str[lastIndex] = '\0';
+    printf("Gematria Sequences: %s\n", str);
 }
 
+//-----------------------------------q2------------------------------------------------
+void func2(char word[], char txt[]) {
 
+
+}
+
+//-----------------------------------q3--S----------------------------------------------
 void func3(char word[], char txt[]) {
 
 
@@ -171,13 +220,6 @@ void func3(char word[], char txt[]) {
 
     int len = strlen(txt);
     strcpy(removeArr, txt);
-    // remove all bad   char
-//    while (txt[i] != '\') {
-//        removeArr[k] = txt[i];
-//        i++;
-//        k++;
-//
-//    }
 
 
     printf("%s\n", removeArr);
@@ -224,15 +266,19 @@ void func3(char word[], char txt[]) {
 }
 
 int main() {
-    char word[WORD];//= "head";
-    char txt[TXT] ;//= "lkjdfkhead ASSDdklfjdhead AAh eadSS~";
+    char word[WORD] = "sea";
+    char txt[TXT] = "A sailor went to sea, sea, sea\n"
+                    "To see what he could see, see, see\n"
+                    "But all that he could see, see, see\n"
+                    "Was the bottom of the deep blue sea, sea, sea!~~";
+
 
     //scanWord(word);
     //printf("is work  %s", word);
-   // scanTxt(txt);
+    // scanTxt(txt);
     //  printf("is work  %s", txt);
 
-    func3(word, txt);
+    func1(word, txt);
 
 
 }
