@@ -1,0 +1,288 @@
+#include <stdio.h>
+#include <string.h>
+
+#define TXT 1024
+#define WORD 30
+
+//scan word until you get a blank char
+void scanWord(char str[WORD]) {
+    char c;
+    int i = 0;
+    while (c != '\t' && c != '\n' && c != ' ') {
+        scanf("%c", &c);
+        str[i] = c;
+        i++;
+    }
+}
+
+//scan txt until you get the char  ~
+void scanTxt(char str[TXT]) {
+
+    char c;
+    int i = 0;
+    scanf("%c", &c);
+    while (c != '~') {
+        scanf("%c", &c);
+        str[i] = c;
+        i++;
+    }
+}
+
+int charInGematria(char c) {
+
+    if (c >= 97 && c <= 122) {
+
+        return c - 97 + 1;
+    } else if (c >= 65 && c <= 90) {
+        return c - 65 + 1;
+    }
+    return 0;
+}
+
+
+//copy  string from b[from] to  a[to]
+void copy(int from, int to, char a[], char b[]) {
+    int i = 0;
+    while (from <= to) {
+
+        a[i] = b[from];
+        from++;
+        i++;
+    }
+
+
+}
+
+char aToZ(char c) {
+    int ascii = c;
+
+    char pos;
+    if (c >= 'a' && c <= 'z') {
+        pos = ascii - 'a';
+        pos = 25 - pos;
+        ascii = pos + 'a';
+    } else if (c >= 'A' && c <= 'Z') {
+        pos = ascii - 'A';
+        pos = 25 - pos;
+        ascii = pos + 'A';
+    }
+
+    return ascii;
+}
+
+void swap(char *i, char *j) {
+    char temp = *i;
+    *i = *j;
+    *j = temp;
+}
+
+void reversWord(char *str, int len) {
+
+    for (int i = 0; i < len / 2; i++) {
+        swap(&str[i], &str[len - 1 - i]);
+    }
+}
+
+int Anagram_Sequences(char word[], char temp[]) {
+
+    int a[53] = {0};
+    int b[53] = {0};
+
+
+    int i = 0;
+    while (word[i] != '\0') {
+        if (word[i] == 32) {
+            a[26]++;
+        } else if (word[i] >= 'a' && word[i] <= 'z') {
+            a[word[i] - 'a']++;
+        } else if (word[i] >= 'A' && word[i] <= 'Z') {
+            a[word[i] - 'A' + 27]++;
+
+        }
+        i++;
+    }
+    i = 0;
+
+    while (temp[i] != '\0') {
+        if (temp[i] == 32) {
+            b[26]++;
+        } else if (temp[i] >= 'a' && temp[i] <= 'z') {
+            b[temp[i] - 'a']++;
+        } else if (temp[i] >= 'A' && temp[i] <= 'Z') {
+            b[temp[i] - 'A' + 27]++;
+        }
+        i++;
+    }
+
+    for (i = 0; i < 53; i++) {
+
+        if (a[i] != b[i]) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+int minmal(char c) {
+
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
+        return 1;
+    }
+    return 0;
+
+}
+
+//----------------------------q1-----------------------------------------
+void func1(char word[], char txt[]) {
+
+    int i = 0;
+    char array[TXT];
+    strcpy(array, txt);
+    int k = 0;
+
+
+    int sum = 0;
+    while (word[i] != '\0') {
+        sum += charInGematria(word[i]);
+        i++;
+    }
+
+
+    i = 0;
+    int c = 0;
+    char str[TXT] = "";
+    int sumTxt = 0;
+
+    int from = 0;
+    while (array[i] != '\0') {
+        char temp[TXT] = "";
+
+        copy(from, i, temp, array);
+
+
+
+        while (temp[k] != '\0') {
+            sumTxt += charInGematria(temp[k]);
+            k++;
+        }
+        k = 0;
+
+        if (sum > sumTxt) {
+            i++;
+            sumTxt = 0;
+        } else if (sum < sumTxt) {
+            sumTxt = 0;
+            from++;
+        } else {
+
+            int j = 0;
+            if (minmal(temp[j])) {
+                while (temp[j] != '\0') {
+                    str[c] = temp[j];
+                    c++;
+                    j++;
+                }
+                int lastIndex = strlen(str);
+                str[lastIndex] = '~';
+                c++;
+                from++;
+                i++;
+                sumTxt = 0;
+            } else {
+                sumTxt = 0;
+                from++;
+            }
+        }
+    }
+
+    int lastIndex = strlen(str) - 1;
+    str[lastIndex] = '\0';
+    printf("Gematria Sequences: %s\n", str);
+}
+
+//-----------------------------------q2------------------------------------------------
+void func2(char word[], char txt[]) {
+
+    char array[TXT];
+    strcpy(array,txt);
+
+
+
+
+
+
+}
+
+//-----------------------------------q3--S----------------------------------------------
+void func3(char word[], char txt[]) {
+
+
+    int i = 0;
+    int k = 0;
+    char removeArr[TXT];
+
+    int len = strlen(txt);
+    strcpy(removeArr, txt);
+
+
+    printf("%s\n", removeArr);
+
+    char str[TXT] = "";
+
+
+    int size = strlen(word);
+
+    i = 0;
+    k = 0;
+
+
+    while (removeArr[i] != '\0') {
+
+        char tempArr[TXT] = "";
+        printf("BEFORE %s\n", tempArr);
+
+
+        copy(i, size - 1, tempArr, removeArr);
+        printf("AFTER %s\n", tempArr);
+        if (Anagram_Sequences(tempArr, word)) {
+            int j = 0;
+            while (tempArr[j] != '\0') {
+                str[k] = tempArr[j];
+                j++;
+                k++;
+            }
+            int lastIndex = strlen(str);
+            printf("---->%d\n", lastIndex);
+            str[lastIndex] = '~';
+            k++;
+        }
+
+
+        i++;
+        size++;
+    }
+
+
+    int lastIndex = strlen(str) - 1;
+    str[lastIndex] = '\0';
+    printf("Anagram Sequences: %s\n", str);
+}
+
+int main() {
+    char word[WORD] = "sea";
+    char txt[TXT] = "A sailor went to sea, sea, sea\n"
+                    "To see what he could see, see, see\n"
+                    "But all that he could see, see, see\n"
+                    "Was the bottom of the deep blue sea, sea, sea!~~";
+
+
+    //scanWord(word);
+    //printf("is work  %s", word);
+    // scanTxt(txt);
+    //  printf("is work  %s", txt);
+
+    func1(word, txt);
+
+
+}
