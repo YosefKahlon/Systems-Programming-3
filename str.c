@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include"mylib.h"
 #define TXT 1024
 #define WORD 30
 
@@ -222,7 +222,7 @@ void func3(char word[], char txt[]) {
     int k = 0;
     char removeArr[TXT];
 
-    int len = strlen(txt);
+    
     strcpy(removeArr, txt);
 
 
@@ -269,20 +269,20 @@ void func3(char word[], char txt[]) {
     printf("Anagram Sequences: %s\n", str);
 }
 
-int main() {
-    char word[WORD] = "sea";
-    char txt[TXT] = "A sailor went to sea, sea, sea\n"
-                    "To see what he could see, see, see\n"
-                    "But all that he could see, see, see\n"
-                    "Was the bottom of the deep blue sea, sea, sea!~~";
+// int main() {
+//     char word[WORD] = "sea";
+//     char txt[TXT] = "A sailor went to sea, sea, sea\n"
+//                     "To see what he could see, see, see\n"
+//                     "But all that he could see, see, see\n"
+//                     "Was the bottom of the deep blue sea, sea, sea!~~";
 
 
-    //scanWord(word);
-    //printf("is work  %s", word);
-    // scanTxt(txt);
-    //  printf("is work  %s", txt);
+//     //scanWord(word);
+//     //printf("is work  %s", word);
+//     // scanTxt(txt);
+//     //  printf("is work  %s", txt);
 
-    func1(word, txt);
+//     func1(word, txt);
 
 
-}
+// }
