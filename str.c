@@ -344,7 +344,7 @@ void func3(char word[], char txt[]) {
 
     int lastIndex = strlen(str) - 1;
     str[lastIndex] = '\0';
-    printf("Anagram Sequences: %s\n", str);
+    printf("Anagram Sequences: %s", str);
 }
 
 //int main() {
