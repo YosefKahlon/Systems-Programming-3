@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include"mylib.h"
+#include "mylib.h"
 
 #define TXT 1024
 #define WORD 30
@@ -9,11 +9,13 @@
 void scanWord(char str[WORD]) {
     char c;
     int i = 0;
+
     while (c != '\t' && c != '\n' && c != ' ') {
         scanf("%c", &c);
         str[i] = c;
         i++;
     }
+    str[i-1] = '\0';
 }
 
 //scan txt until you get the char  ~
@@ -21,12 +23,13 @@ void scanTxt(char str[TXT]) {
 
     char c;
     int i = 0;
-    scanf("%c", &c);
+
     while (c != '~') {
         scanf("%c", &c);
         str[i] = c;
         i++;
     }
+    str[i-1] = '\0';
 }
 
 int charInGematria(char c) {
@@ -302,12 +305,9 @@ void func2(char word[], char txt[]) {
 //-----------------------------------q3--S----------------------------------------------
 void func3(char word[], char txt[]) {
 
-
     int i = 0;
     int k = 0;
     char removeArr[TXT];
-
-
     strcpy(removeArr, txt);
 
 
@@ -332,7 +332,6 @@ void func3(char word[], char txt[]) {
                 k++;
             }
             int lastIndex = strlen(str);
-            printf("---->%d\n", lastIndex);
             str[lastIndex] = '~';
             k++;
         }
@@ -348,3 +347,17 @@ void func3(char word[], char txt[]) {
     printf("Anagram Sequences: %s\n", str);
 }
 
+//int main() {
+//    char word[WORD] ;
+//    char txt[TXT] ;
+//    scanWord(word);
+//    char cpyWord[WORD];
+//    strcpy(cpyWord,word);
+//    scanTxt(txt);
+//    char cpyTxt[TXT];
+//    strcpy(cpyTxt,txt);
+//    func1(word, txt);
+//    func2(word, txt);
+//    func3(cpyWord, txt);
+//    return  0;
+//}

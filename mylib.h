@@ -3,11 +3,6 @@
 #define TXT 1024
 #define WORD 30
 
-void func1(char word[WORD], char txt[TXT]);
-
-void func2(char word[WORD], char txt[TXT]);
-
-void func3(char word[WORD], char txt[TXT]);
 
 void scanWord(char str[WORD]);
 
@@ -23,13 +18,19 @@ void swap(char *i, char *j);
 
 void reversWord(char *str, int len);
 
+void Atbash_Sequences(char a[WORD]);
+
 int Anagram_Sequences(char word[WORD], char temp[WORD]);
 
 int minmal(char c);
 
 int compre(char a[WORD], char b[WORD]);
 
-void Atbash_Sequences(char a[WORD]);
 
+void func1(char word[WORD], char txt[TXT]);
+
+void func2(char word[WORD], char txt[TXT]);
+
+void func3(char word[WORD], char txt[TXT]);
 
 #endif
