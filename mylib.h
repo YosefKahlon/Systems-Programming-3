@@ -1,20 +1,35 @@
-#ifndef _mylib_h  
+#ifndef _mylib_h
 # define _mylib_h
-void func1(char word[30], char txt[1024]);
-void func2(char word[30], char txt[1024]);
-void func3(char word[30], char txt[1024]);
-// void scanWord(char str[30]);
-// void scanTxt(char str[1024]);
-// int charInGematria(char c);
-// void copy(int from, int to, char a[30], char b[30]);
-// char aToZ(char c);
-// void swap(char *i, char *j);
-// void reversWord(char *str, int len);
-// int Anagram_Sequences(char word[30], char temp[30]);
-// int minmal(char c);
+#define TXT 1024
+#define WORD 30
 
+void func1(char word[WORD], char txt[TXT]);
 
+void func2(char word[WORD], char txt[TXT]);
 
+void func3(char word[WORD], char txt[TXT]);
+
+void scanWord(char str[WORD]);
+
+void scanTxt(char str[TXT]);
+
+int charInGematria(char c);
+
+void copy(int from, int to, char a[30], char b[30]);
+
+char aToZ(char c);
+
+void swap(char *i, char *j);
+
+void reversWord(char *str, int len);
+
+int Anagram_Sequences(char word[WORD], char temp[WORD]);
+
+int minmal(char c);
+
+int compre(char a[WORD], char b[WORD]);
+
+void Atbash_Sequences(char a[WORD]);
 
 
 #endif

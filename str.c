@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include"mylib.h"
+
 #define TXT 1024
 #define WORD 30
 
@@ -83,6 +84,18 @@ void reversWord(char *str, int len) {
     }
 }
 
+void Atbash_Sequences(char a[]) {
+    int i = 0;
+
+    while (a[i] != '\0') {
+
+        a[i] = aToZ(a[i]);
+        i++;
+    }
+
+
+}
+
 int Anagram_Sequences(char word[], char temp[]) {
 
     int a[53] = {0};
@@ -133,6 +146,23 @@ int minmal(char c) {
 
 }
 
+int compre(char a[], char b[]) {
+
+    int i = 0;
+    int ans = 1;
+    while (a[i] != '\0' && b[i] != '\0') {
+
+        if (a[i] != b[i]) {
+
+            ans = 0;
+            break;
+        }
+        i++;
+    }
+    return ans;
+}
+
+
 //----------------------------q1-----------------------------------------
 void func1(char word[], char txt[]) {
 
@@ -159,7 +189,6 @@ void func1(char word[], char txt[]) {
         char temp[TXT] = "";
 
         copy(from, i, temp, array);
-
 
 
         while (temp[k] != '\0') {
@@ -205,14 +234,70 @@ void func1(char word[], char txt[]) {
 void func2(char word[], char txt[]) {
 
     char array[TXT];
-    strcpy(array,txt);
+    strcpy(array, txt);
 
 
+    char atbashRegular[TXT];
+    strcpy(atbashRegular, word);
+    Atbash_Sequences(atbashRegular);
 
 
+    char atbashReverse[TXT];
+    strcpy(atbashReverse, word);
+    reversWord(atbashReverse, strlen(atbashReverse));
+    Atbash_Sequences(atbashReverse);
+
+    char str[TXT] = "";
 
 
+    int size = strlen(atbashReverse);
+
+    int i = size;
+    int from = 0;
+    int k = 0;
+
+    while (array[i] != '\0') {
+
+        char temp[TXT] = "";
+
+        copy(from, i - 1, temp, array);
+
+
+        if (compre(temp, atbashReverse) == 1) {
+            int j = 0;
+            while (temp[j] != '\0') {
+                str[k] = temp[j];
+                k++;
+                j++;
+            }
+            str[k] = '~';
+            k++;
+            from++;
+            i++;
+        } else if (compre(temp, atbashRegular) == 1) {
+            int j = 0;
+            while (temp[j] != '\0') {
+                str[k] = temp[j];
+                k++;
+                j++;
+            }
+            str[k] = '~';
+            k++;
+            from++;
+            i++;
+        } else {
+            from++;
+            i++;
+        }
+
+
+    }
+
+
+    str[strlen(str) - 1] = '\0';
+    printf("Atbash Sequences: %s\n", str);
 }
+
 
 //-----------------------------------q3--S----------------------------------------------
 void func3(char word[], char txt[]) {
@@ -222,29 +307,23 @@ void func3(char word[], char txt[]) {
     int k = 0;
     char removeArr[TXT];
 
-    
+
     strcpy(removeArr, txt);
 
-
-    printf("%s\n", removeArr);
 
     char str[TXT] = "";
 
 
     int size = strlen(word);
 
-    i = 0;
-    k = 0;
-
 
     while (removeArr[i] != '\0') {
 
         char tempArr[TXT] = "";
-        printf("BEFORE %s\n", tempArr);
 
 
         copy(i, size - 1, tempArr, removeArr);
-        printf("AFTER %s\n", tempArr);
+
         if (Anagram_Sequences(tempArr, word)) {
             int j = 0;
             while (tempArr[j] != '\0') {
@@ -269,20 +348,3 @@ void func3(char word[], char txt[]) {
     printf("Anagram Sequences: %s\n", str);
 }
 
-// int main() {
-//     char word[WORD] = "sea";
-//     char txt[TXT] = "A sailor went to sea, sea, sea\n"
-//                     "To see what he could see, see, see\n"
-//                     "But all that he could see, see, see\n"
-//                     "Was the bottom of the deep blue sea, sea, sea!~~";
-
-
-//     //scanWord(word);
-//     //printf("is work  %s", word);
-//     // scanTxt(txt);
-//     //  printf("is work  %s", txt);
-
-//     func1(word, txt);
-
-
-// }
